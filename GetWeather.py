@@ -1,6 +1,11 @@
 from urllib import request
 import requests
 
+
+def kelvins_to_celcius(s):
+    num = int(s)
+    return num - 273.15
+
 API_KEY = "efb7ddca990388e37e96615e788890f2"
 URL = "http://api.openweathermap.org/data/2.5/weather"
 
@@ -17,9 +22,10 @@ while run:
 
     if res.status_code == 200:
         city_dict = res.json()
-
-        print("The weather in " + city + ", " + city_dict['sys']['country'] +
-              " is:\n")
+        #print(city_dict)
+        print("The weather in " + city[0].upper() + city[1:] + ", " + city_dict['sys']['country'] +
+              " is " + str(round((city_dict['main']['temp'] - 273.15), 2))
+              + "°C with " + city_dict['weather'][0]['description'])
 
         loop_guard = True
         while loop_guard:
